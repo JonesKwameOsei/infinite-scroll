@@ -5,20 +5,25 @@ let ready = false;
 let imagesLoaded = 0;
 let totalImages = 0;
 let photosArray = [];
+// Improve Performance by using Unsplash API
+let initialLoad = true;
 
 // Get Unsplash API
-const count = 30;
+let count = 5;
 const apiKey = 'UbjsNy-khPGQ9cWz71_zE_aDzrXP6LJE1jsShl0qetk';
 const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
 
 function imageLoaded() {
   imagesLoaded++;
-  console.log(`imagesLoaded = ${imagesLoaded}`);
   if (imagesLoaded === totalImages) {
     ready = true;
     // Hide Loader when image is finished loading
     loader.hidden = true;
+    if (!initialLoad) {
+      count = 30;
+    }
   }
+  initialLoad = false;
 }
 
 // Helper Function: to set attributes on DOM elements
